@@ -613,6 +613,7 @@ function _Chat() {
   const [hitBottom, setHitBottom] = useState(true);
   const isMobileScreen = useMobileScreen();
   const navigate = useNavigate();
+  const accessStore = useAccessStore();
 
   // prompt hints
   const promptStore = usePromptStore();
@@ -740,6 +741,11 @@ function _Chat() {
         }
       });
 
+      //jump enter password
+      if (!accessStore.isAuthorized()) {
+        navigate(Path.Auth)
+      }
+
       // auto sync mask config from global config
       if (session.mask.syncGlobalConfig) {
         console.log("[Mask] syncing from global, name = ", session.mask.name);
@@ -858,7 +864,6 @@ function _Chat() {
   const context: RenderMessage[] = useMemo(() => {
     return session.mask.hideContext ? [] : session.mask.context.slice();
   }, [session.mask.context, session.mask.hideContext]);
-  const accessStore = useAccessStore();
 
   if (
     context.length === 0 &&
