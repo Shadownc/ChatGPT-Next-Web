@@ -65,6 +65,7 @@ import { Avatar, AvatarPicker } from "./emoji";
 import { getClientConfig } from "../config/client";
 import { useSyncStore } from "../store/sync";
 import { nanoid } from "nanoid";
+import { PluginConfigList } from "./plugin-config";
 import { useMaskStore } from "../store/mask";
 import { ProviderType } from "../utils/cloud";
 
@@ -990,6 +991,17 @@ export function Settings() {
         {shouldShowPromptModal && (
           <UserPromptModal onClose={() => setShowPromptModal(false)} />
         )}
+
+        <List>
+          <PluginConfigList
+            pluginConfig={config.pluginConfig}
+            updateConfig={(updater) => {
+              const pluginConfig = { ...config.pluginConfig };
+              updater(pluginConfig);
+              config.update((config) => (config.pluginConfig = pluginConfig));
+            }}
+          />
+        </List>
 
         <DangerItems />
       </div>
