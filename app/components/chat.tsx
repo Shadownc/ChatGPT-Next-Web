@@ -536,16 +536,31 @@ export function ChatActions(props: {
               icon={usePlugins ? <EnablePluginIcon /> : <DisablePluginIcon />}
             />
           )}
+
         {showModelSelector && (
-        <Selector
-          defaultSelectedValue={currentModel}
-          items={models.map((m) => ({
-            title: m.displayName,
-            value: m.name,
-          }))}
-          onClose={() => setShowModelSelector(false)}
-          onSelection={(s) => {
-            if (s.length === 0) return;
+          <Selector
+            defaultSelectedValue={currentModel}
+            items={models.map((m) => ({
+              title: m.displayName,
+              value: m.name,
+            }))}
+            onClose={() => setShowModelSelector(false)}
+            onSelection={(s) => {
+              if (s.length === 0) return;
+              chatStore.updateCurrentSession((session) => {
+                session.mask.modelConfig.model = s[0] as ModelType;
+                session.mask.syncGlobalConfig = false;
+              });
+              showToast(s[0]);
+            }}
+          />
+        )}
+      </div>
+      <div>
+        <ChatAction
+          text={Locale.Chat.InputActions.Clear}
+          icon={<BreakIcon />}
+          onClick={() => {
             chatStore.updateCurrentSession((session) => {
               if (session.clearContextIndex === session.messages.length) {
                 session.clearContextIndex = undefined;
@@ -554,26 +569,8 @@ export function ChatActions(props: {
                 session.memoryPrompt = ""; // will clear memory
               }
             });
-            showToast(s[0]);
           }}
         />
-        )}
-        </div>
-     <div>
-      <ChatAction
-        text={Locale.Chat.InputActions.Clear}
-        icon={<BreakIcon />}
-        onClick={() => {
-          chatStore.updateCurrentSession((session) => {
-            if (session.clearContextIndex === session.messages.length) {
-              session.clearContextIndex = undefined;
-            } else {
-              session.clearContextIndex = session.messages.length;
-              session.memoryPrompt = ""; // will clear memory
-            }
-          });
-        }}
-      />
       </div>
     </div>
   );

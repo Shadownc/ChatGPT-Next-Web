@@ -477,8 +477,8 @@ const en: LocaleType = {
   },
   Exporter: {
     Description: {
-      Title: "Only messages after clearing the context will be displayed"
-    },  
+      Title: "Only messages after clearing the context will be displayed",
+    },
     Model: "Model",
     Messages: "Messages",
     Topic: "Topic",
