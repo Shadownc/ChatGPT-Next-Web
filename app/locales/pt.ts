@@ -412,6 +412,7 @@ const pt: LocaleType = {
       Download: "Transferir a predefinição",
       Clone: "Predefinição de clonagem",
     },
+    RuntimeWarning: "Disponível apenas para implantação em ambientes que não sejam da Vercel",
   },
   FineTuned: {
     Sysmessage: "Você é um assistente que",
