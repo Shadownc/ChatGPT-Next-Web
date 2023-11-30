@@ -16,6 +16,7 @@ export type Plugin = {
   description: string;
   builtin: boolean;
   enable: boolean;
+  onlyNodeRuntime: boolean;
 };
 
 export const DEFAULT_PLUGIN_STATE = {
