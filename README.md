@@ -29,8 +29,6 @@ One-Click to get well-designed cross-platform ChatGPT web UI.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Yidadaa/ChatGPT-Next-Web)
 
-![cover](./docs/images/cover.png)
-
 </div>
 
 ## Features
