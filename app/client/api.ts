@@ -194,7 +194,10 @@ export function getHeaders(ignoreHeaders?: boolean) {
   // use user's api key first
   if (validString(apiKey)) {
     authHeader = isGoogle ? "x-goog-api-key" : authHeader;
+    headers[authHeader] = makeBearer(apiKey);
+  } else if (
     accessStore.enabledAccessControl() &&
+    validString(accessStore.accessCode)
   ) {
     headers[authHeader] = makeBearer(
       ACCESS_CODE_PREFIX + accessStore.accessCode,
